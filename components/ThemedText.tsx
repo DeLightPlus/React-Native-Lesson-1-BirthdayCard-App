@@ -58,3 +58,7 @@ const styles = StyleSheet.create({
     color: '#0a7ea4',
   },
 });
+
+const styles2 = StyleSheet.create({
+  text: { fontSize: 12, color: "wheat" }
+});
