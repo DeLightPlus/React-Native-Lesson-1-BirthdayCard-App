@@ -4,16 +4,34 @@ import { useState } from "react";
 import { StyleSheet, KeyboardAvoidingView, Pressable, ScrollView, Text, TextInput, View, Image, ImageBackground, ActivityIndicator, Modal } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from 'expo-image-picker';
+import { Picker } from '@react-native-picker/picker';
 
 export default function RootLayout() {
-
+  // Default cover images and other states
   const cover1 = "https://img.freepik.com/free-photo/happy-birthday-soccer-themed_23-2149695991.jpg?t=st=1732789631~exp=1732793231~hmac=162534b793a82cdda110a15efcd03bb131207c914e5d3d34849560eaccbd2ec3&w=1380";
   const cover2 = "https://img.freepik.com/free-psd/birthday-sales-blank-banner-background_23-2150810566.jpg?t=st=1732790081~exp=1732793681~hmac=bc9a6db2d65524f433137992472a57e36f309ce9d6433c030aa0dcf1887f2b03&w=1380";
 
   const [title, setTitle] = useState('Happy Birthday!');
   const [coverImage, setCoverImage] = useState(cover1);
   const [editorContent, setEditorContent] = useState('');
+  const [cardRotated, setCardRotated] = useState(true);
 
+  const [selectedPreset, setSelectedPreset] = useState(""); // Track preset selection
+
+  const presets = [
+    { key: '1', value: 'Happy Birthday' },
+    { key: '2', value: 'Milestone Birthday' },
+    { key: '3', value: 'Sweet 16' },
+    { key: '4', value: 'Over-the-Hill' },
+    { key: '5', value: 'Fun & Playful' },
+    { key: '6', value: 'Elegant' },
+    { key: '7', value: 'Vintage' },
+    { key: '8', value: 'Stars & Sparkles' },
+    { key: '9', value: 'Floral' },
+    { key: '10', value: 'Balloons & Confetti' },
+  ];
+
+  // Handle image upload via Expo ImagePicker
   const uploadImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -31,10 +49,28 @@ export default function RootLayout() {
     }
   };
 
+  // Handle preset selection and update values based on the selected preset
+  const handlePresetSelect = () => {
+    if (selectedPreset === "Happy Birthday") {
+      setTitle("Happy Birthday!");
+      setCoverImage(cover1);
+    } else if (selectedPreset === "Milestone Birthday") {
+      setTitle("Milestone Birthday");
+      setCoverImage(cover2); // Change cover image for Milestone Birthday
+    }
+    // Add more conditions for other presets if needed
+  };
+
+  // Toggle the card rotation state
+  const handleToggleRotation = () => {
+    setCardRotated(!cardRotated);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#000000" style="auto" />
 
+      {/* Card container with toggle rotation feature */}
       <View style={styles.cardContainer}>
         <View style={styles.cardOption}>
           <Pressable onPress={() => { alert("Attempt change to single/folded card"); }}>
@@ -42,33 +78,53 @@ export default function RootLayout() {
           </Pressable>
         </View>
 
-        <View style={styles.card}>
+        <View style={[styles.card, {
+            // Conditionally apply the rotation based on the `rotated` state
+            transform: cardRotated
+              ? [
+                  { perspective: 1000 },
+                  { rotateX: '35deg' },
+                  { rotateY: '4deg' },
+                  { rotateZ: '-30deg' },
+                ]
+              : [], // Remove the transform if `rotated` is false
+          },
+        ] }>
           <Text style={styles.title}> {title} </Text>
           <ImageBackground style={styles.cardImage} resizeMode="cover" source={{ uri: coverImage }} />
         </View>
 
-        <View style={styles.cardOption}>
-          <Pressable onPress={() => { alert("Attempt change to presets"); }}>
-            <Text>🎛🎚 Presets</Text>
+        <View style={styles.v_inputGroup}>
+          <Pressable onPress={uploadImage}>
+            <Text>📷Cover Pic</Text>
+          </Pressable>
+          <Pressable onPress={() => { alert("Attempt change to portrait"); }}>
+            <Text>🖼 Portrait</Text>
+          </Pressable>
+
+          {/* Picker for selecting preset */}
+          <Picker
+            selectedValue={selectedPreset}
+            onValueChange={(itemValue) => {
+              setSelectedPreset(itemValue);
+              handlePresetSelect(); // Update preset when selection changes
+            }}
+            style={styles.picker}
+          >
+            <Picker.Item label="🎛🎚 Preset" value="" />
+            {presets.map((preset) => (
+              <Picker.Item key={preset.key} label={preset.value} value={preset.value} />
+            ))}
+          </Picker>
+
+          <Pressable onPress={handleToggleRotation}>
+            <Text>🔃</Text>
           </Pressable>
         </View>
       </View>
 
+      {/* Card input details section */}
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.inputGroup}>
-          <View style={styles.inputOption}>
-            <Pressable onPress={uploadImage}>
-              <Text>📷 Choose Cover</Text>
-            </Pressable>
-          </View>
-
-          <View style={styles.inputOption}>
-            <Pressable onPress={() => { alert("Attempt change to landscape"); }}>
-              <Text>🖼 Portrait</Text>
-            </Pressable>
-          </View>
-        </View>
-
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Title</Text>
           <TextInput
@@ -111,7 +167,8 @@ export default function RootLayout() {
         </View>
 
         <Pressable style={styles.button} onPress={() => { alert("hey, you actually pressed me!!"); }}>
-          <Text style={styles.buttonText}>CONTINUE
+          <Text style={styles.buttonText}>
+            CONTINUE
             <ActivityIndicator color="pink" size={15} />
           </Text>
         </Pressable>
@@ -123,13 +180,13 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
   },
 
   cardContainer: {
     padding: 16,
-    height: "46%",
-    backgroundColor: "linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, lightblue 100%)",
+    height: "42%",
+    backgroundImage: `linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, lightblue 100%)`,
   },
 
   cardOption: {
@@ -138,8 +195,8 @@ const styles = StyleSheet.create({
 
   card: {
     backgroundColor: "black",
-    width: 300,
-    height: 200,
+    width: "100%",
+    height: "76%",
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 0,
@@ -149,12 +206,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.4,
     shadowRadius: 40,
-    transform: [
-      { perspective: 1000 },
-      { rotateX: '35deg' },
-      { rotateY: '4deg' },
-      { rotateZ: '-30deg' },
-    ],
     zIndex: 1,
     overflow: "hidden",
   },
@@ -169,21 +220,38 @@ const styles = StyleSheet.create({
   },
 
   cardImage: {
-    height: 200,
-    width: 300,
+    height: "100%",
+    width: "100%",
   },
 
   scrollView: {
+    flex: 1,
+    marginTop:16,
     padding: 16,
     paddingVertical: 20,
   },
 
-  inputGroup: {
-    marginBottom: 20,
+  v_inputGroup: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "white",
+    opacity: 0.85,
+    padding: 8,
+    zIndex: 1,
   },
 
-  inputOption: {
-    marginVertical: 10,
+  picker: {
+    height: 50,
+    width: 127,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderWidth: 0,
+    borderColor: '#ccc',
+  },
+
+  inputGroup: {
+    marginBottom: 20,
   },
 
   label: {
