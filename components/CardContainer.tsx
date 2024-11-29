@@ -1,11 +1,13 @@
 import * as ImagePicker from 'expo-image-picker';
 import { Picker } from '@react-native-picker/picker';
+
 import { useState } from "react";
 import { ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 
 const CardContainer = ({ presets=[], cardData={}, setCardData, handlePresetSelect }) => {
     const [cardRotated, setCardRotated] = useState(true);
     const [selectedPreset, setSelectedPreset] = useState("");   
+    
 
     // Handle image upload via Expo ImagePicker
     const uploadImage = async () => {
@@ -46,10 +48,18 @@ const CardContainer = ({ presets=[], cardData={}, setCardData, handlePresetSelec
                     { rotateZ: '-30deg' },
                 ] : [],
             }]}>
-                <Text style={styles.title}>{cardData.title}</Text>
-                <Text style={styles.message}>{cardData.message}</Text>
-                <Text style={styles.birthday}>{cardData.birthday}</Text>
-                <Text style={styles.celebrant}>{cardData.celebrant}</Text>
+                <Text style={[styles.title, { top: cardData.titlePosition.top, left: cardData.titlePosition.left, fontFamily: cardData.titleFontFamily, fontSize: cardData.titleFontSize, color: cardData.titleFontColor, fontStyle: cardData.titleFontStyle }]}>
+                    {cardData.title}
+                </Text>
+                <Text style={[styles.message, { top: cardData.messagePosition.top, left: cardData.messagePosition.left, fontFamily: cardData.msgFontFamily, fontSize: cardData.msgFontSize, color: cardData.msgFontColor, fontStyle: cardData.msgFontStyle }]}>
+                    {cardData.message}
+                </Text>
+                <Text style={[styles.birthday, { fontFamily: cardData.birthdayFontFamily, fontSize: cardData.birthdayFontSize, color: cardData.birthdayFontColor, fontStyle: cardData.birthdayFontStyle }]}>
+                    {cardData.birthday}
+                </Text>
+                <Text style={[styles.celebrant, { top: cardData.celebrantPosition.top, left: cardData.celebrantPosition.left, fontFamily: cardData.celebrantFontFamily, fontSize: cardData.celebrantFontSize, color: cardData.celebrantFontColor, fontStyle: cardData.celebrantFontStyle }]}>
+                    {cardData.celebrant}
+                </Text>
 
                 <ImageBackground style={styles.cardImage} resizeMode="cover" source={{ uri: cardData.cover }} />
             </View>
@@ -69,9 +79,11 @@ const CardContainer = ({ presets=[], cardData={}, setCardData, handlePresetSelec
                     style={styles.picker}
                 >
                     <Picker.Item label="🎛🎚 Preset" value="" />
-                    {presets.map((preset) => (
-                        <Picker.Item key={preset.key} label={preset.value} value={preset.value} />
-                    ))}
+                    {
+                        presets.map((preset) => (
+                            <Picker.Item key={preset.key} label={preset.value} value={preset.value} />
+                        ))
+                    }
                 </Picker>
 
                 <Pressable onPress={() => alert("Attempt change to portrait")}>
@@ -151,7 +163,6 @@ const styles = StyleSheet.create({
         padding: 1,
         zIndex: 1,
     },
-
     cardImage: {
         height: "100%",
         width: "100%",
