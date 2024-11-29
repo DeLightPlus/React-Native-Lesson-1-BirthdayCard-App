@@ -51,3 +51,9 @@ Join our community of developers creating universal apps.
 
 
 ___________________________________________________________________________________________________________
+Activity 1 React-Native
+Birthday card.
+● Card Creation:
+   ○ Allow users to create custom birthday cards with text, images, and decorations.
+● Text Editing:
+   ○ Enable users to add, edit, and format text on the card
