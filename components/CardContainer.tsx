@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     cardContainer: {
         padding: 16,
         height: "42%",
-        backgroundImage: 'linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, lightblue 100%)',
+        backgroundImage: 'linear-gradient(-20deg, lightgrey 0%, lightgrey 100%, lightblue 100%)',
     },
     cardOption: {
         marginVertical: 10,
