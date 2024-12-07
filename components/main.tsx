@@ -1,8 +1,14 @@
 
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, Text, Pressable, ScrollView, ActivityIndicator, View } from "react-native";
 import { Picker } from '@react-native-picker/picker';
 
+=======
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, StyleSheet, TextInput, Text, Pressable, ScrollView, ActivityIndicator, View, Picker, Platform } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+>>>>>>> 1667b0704c1441055f3e5732e9dc96ef106cba6f
 import CardContainer from "./CardContainer";
 import { StatusBar } from "expo-status-bar";
 
@@ -15,6 +21,46 @@ export default function Main() {
   const fontFamilies = [
     "Arial", "Courier New", "Georgia", "Times New Roman", "Verdana", "Roboto", "serif", "sans-serif"
   ];
+
+  // Save Card Data (For Mobile and Web)
+  const saveCardData = async () => {
+    try {
+      const dataToSave = JSON.stringify(cardData);
+      
+      if (Platform.OS === "web") {
+        localStorage.setItem("cardData", dataToSave);
+        alert("Card details saved to localStorage for testing!");
+      } else {
+        await AsyncStorage.setItem("cardData", dataToSave);
+        alert("Card details saved successfully!");
+      }
+    } catch (error) {
+      console.error("Error saving card data:", error);
+      alert("Failed to save card details!");
+    }
+  };
+
+  // Load Saved Card Data (On Component Mount)
+  useEffect(() => {
+    const loadCardData = async () => {
+      try {
+        let savedData;
+        if (Platform.OS === "web") {
+          savedData = localStorage.getItem("cardData");
+        } else {
+          savedData = await AsyncStorage.getItem("cardData");
+        }
+
+        if (savedData) {
+          setCardData(JSON.parse(savedData));
+        }
+      } catch (error) {
+        console.error("Error loading card data:", error);
+      }
+    };
+
+    loadCardData();
+  }, []);
 
   const handleFontChange = (key, value) => {
     setCardData((prevData) => ({
@@ -139,7 +185,11 @@ export default function Main() {
         />
 
         {/* Celebrant Font Settings */}
+<<<<<<< HEAD
         {/* <Text style={styles.header2}>Celebrant Font Settings</Text> */}
+=======
+        <Text style={styles.header2}>Celebrant Font Settings</Text>
+>>>>>>> 1667b0704c1441055f3e5732e9dc96ef106cba6f
         <View style={styles.v_inputGroup}>
           <View style={styles.h_Group}>
             <Picker
@@ -213,7 +263,11 @@ export default function Main() {
         </View>
 
         {/* Message */}
+<<<<<<< HEAD
         <Text style={styles.header}>Message</Text>
+=======
+        <Text style={styles.header}>Regards</Text>
+>>>>>>> 1667b0704c1441055f3e5732e9dc96ef106cba6f
         <TextInput
           placeholder="Enter your message"
           style={styles.input}
@@ -302,12 +356,16 @@ export default function Main() {
           style={styles.input}
           value={cardData.birthday}
           onChangeText={(text) => handleFontChange("birthday", text)}
+<<<<<<< HEAD
         />
+=======
+        />        
+>>>>>>> 1667b0704c1441055f3e5732e9dc96ef106cba6f
 
         {/* Continue Button */}
-        <Pressable style={styles.button} onPress={() => alert("Card details updated!")}>
+        <Pressable style={styles.button} onPress={saveCardData}>
           <Text style={styles.buttonText}>
-            CONTINUE
+            Save
             <ActivityIndicator color="pink" size={15} />
           </Text>
         </Pressable>
@@ -340,6 +398,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     gap: 8,
+    borderBottomColor:"grey",
+    borderBottomWidth: 1,
+    marginBottom: 2
   },
   input: {
     padding: 10,

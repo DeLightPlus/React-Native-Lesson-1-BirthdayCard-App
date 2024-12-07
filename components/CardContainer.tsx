@@ -159,6 +159,7 @@ const CardContainer = ({ presets = [], cardData = {}, setCardData }) => {
 export default CardContainer;
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
   cardContainer: {
     padding: 16,
     height: "42%",
@@ -242,5 +243,90 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: '#ccc',
   },
+=======
+    cardContainer: {
+        padding: 16,
+        height: "42%",
+        backgroundImage: 'linear-gradient(-20deg, lightgrey 0%, lightgrey 100%, lightblue 100%)',
+    },
+    cardOption: {
+        marginVertical: 10,
+    },
+    card: {
+        backgroundColor: "black",
+        width: "100%",
+        height: "76%",
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 0,
+        marginBottom: 0,
+        borderRadius: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.4,
+        shadowRadius: 40,
+        zIndex: 1,
+        overflow: "hidden",
+    },
+    title: {
+        position: "absolute",
+        fontSize: 24,
+        color: "black",
+        textAlign: "center",
+        padding: 1,
+        zIndex: 1,
+    },
+    message: {
+        position: "absolute",
+        top:50,
+        left:20,
+        fontSize: 16,
+        color: "black",
+        textAlign: "center",
+        padding: 1,
+        zIndex: 1,
+    },
+    birthday: {
+        position: "absolute",
+        bottom: 10,
+        right: 10,
+        fontSize: 12,
+        color: "white",
+        textAlign: "center",
+        padding: 1,
+        zIndex: 1,
+    },
+    celebrant:{
+        position: "absolute",
+        top: "70%",
+        left: "50%",
+        fontSize: 12,
+        color: "white",
+        textAlign: "center",
+        padding: 1,
+        zIndex: 1,
+    },
+    cardImage: {
+        height: "100%",
+        width: "100%",
+    },
+    v_inputGroup: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        backgroundColor: "white",
+        opacity: 0.85,
+        padding: 8,
+        zIndex: 1,
+    },
+    picker: {
+        height: 50,
+        width: 127,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        borderWidth: 0,
+        borderColor: '#ccc',
+    },
+>>>>>>> 1667b0704c1441055f3e5732e9dc96ef106cba6f
 });
 

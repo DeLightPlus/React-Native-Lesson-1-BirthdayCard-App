@@ -16,9 +16,16 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+<<<<<<< HEAD
     "@react-native-picker/picker": "^2.10.2",
     "@react-navigation/bottom-tabs": "^7.1.3",
     "@react-navigation/native": "^7.0.13",
+=======
+    "@react-native-async-storage/async-storage": "^2.1.0",
+    "@react-native-picker/picker": "2.9.0",
+    "@react-navigation/bottom-tabs": "^7.0.0",
+    "@react-navigation/native": "^7.0.0",
+>>>>>>> 1667b0704c1441055f3e5732e9dc96ef106cba6f
     "expo": "~52.0.11",
     "expo-blur": "~14.0.1",
     "expo-constants": "~17.0.3",
