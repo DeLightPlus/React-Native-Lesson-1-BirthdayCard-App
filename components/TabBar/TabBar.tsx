@@ -3,7 +3,7 @@ import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import TabBarBtn from './TabBarBtn';
 import { icon } from '@/utils/constants';
-import { useState } from 'react';
+
 
 export function TabBar({ state, descriptors, navigation } : BottomTabBarProps) {
   

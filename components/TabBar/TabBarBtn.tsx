@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { useTheme } from '@react-navigation/native';
+// import { useTheme } from '@react-navigation/native';
 
 const TabBarBtn = ({
     onPress, onLongPress, isFocused, routerName, icon, label} :
     { onPress:Function, onLongPress:Function, isFocused:boolean, routerName:string, icon:string, label:string }
 ) => {
 
-    const { colors } = useTheme();
+    // const { colors } = useTheme();
     return (
         <Pressable       
             onPress={onPress}
@@ -15,7 +15,7 @@ const TabBarBtn = ({
             style={styles.tabBarItem}
         >
             <Text>{icon}</Text>
-            <Text style={{ color: isFocused ? colors.primary : colors.text }}>
+            <Text style={{ color: isFocused ? "black" : "grey" }}>
             {label}
             </Text>
     </Pressable>
