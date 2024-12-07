@@ -6,7 +6,10 @@ import { StyleSheet } from "react-native";
 export default function RootLayout() {
   
   return (
-   <Main />
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+    </Stack>
+  //  <Main />
   );
 }
 
