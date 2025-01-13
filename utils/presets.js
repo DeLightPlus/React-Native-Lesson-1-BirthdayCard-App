@@ -1,4 +1,4 @@
-// Presets for different greeting card configurations
+// /utils/presets.js
 
 const cover1 = "https://img.freepik.com/free-photo/happy-birthday-soccer-themed_23-2149695991.jpg?t=st=1732789631~exp=1732793231~hmac=162534b793a82cdda110a15efcd03bb131207c914e5d3d34849560eaccbd2ec3&w=1380";
 const cover2 = "https://img.freepik.com/free-psd/birthday-sales-blank-banner-background_23-2150810566.jpg?t=st=1732790081~exp=1732793681~hmac=bc9a6db2d65524f433137992472a57e36f309ce9d6433c030aa0dcf1887f2b03&w=1380";

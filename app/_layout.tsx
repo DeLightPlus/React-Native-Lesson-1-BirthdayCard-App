@@ -1,4 +1,4 @@
-import Main from "@/components/main";
+import Main from "@/components/CreateCardScreen";
 import { Stack } from "expo-router";
 import { StyleSheet } from "react-native";
 
